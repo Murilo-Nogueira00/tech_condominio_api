@@ -33,5 +33,10 @@ Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para ve
 
 ## Integração com a interface de usuário
 
-Para um melhor aproveitamento da aplicação, é recomendado que o usuário acesse o repositório do front-end da aplicação no link https://github.com/Murilo-Nogueira00/tech_condominio_front.git
+Para um melhor aproveitamento da aplicação, é recomendado que o usuário acesse o repositório do front-end da aplicação no link: 
+
+```
+https://github.com/Murilo-Nogueira00/tech_condominio_front.git
+```
+
 *Acesse o README do repositório front-end para mais informações.
