@@ -234,7 +234,6 @@ def add_reserva(form: ReservaSchema):
 
     if financeiro:
         valor_reserva = financeiro.get_valor_do_espaco(espaco)
-        print(valor_reserva)
         session.query(Financeiro).filter(Financeiro.morador == morador_id).\
         update({Financeiro.valor: Financeiro.valor + valor_reserva}, synchronize_session=False)
         session.commit()
@@ -296,11 +295,14 @@ def get_financas(query: FinanceiroBuscaSchema):
 @app.post('/ocorrencia', tags=[ocorrencia_tag],
           responses={"200": MoradorViewSchema, "404": ErrorSchema, "400": ErrorSchema})
 def add_ocorrencia(form: OcorrenciaSchema):
-    """Adiciona uma nova ocorrência à um morador cadastrado na base identificado pelo apartamento
+    """Adiciona de uma nova ocorrência à um morador cadastrado na base identificado pelo apartamento
 
     Retorna uma representação dos morador e ocorrência associadas.
     """
+    advertencia = "Advertência"
+    multa = "Multa"
     morador_id  = form.morador
+
     logger.debug(f"Adicionando ocorrência ao morador #{morador_id}")
     # criando conexão com a base
     session = Session()
@@ -349,12 +351,32 @@ def add_ocorrencia(form: OcorrenciaSchema):
         return {"message": error_msg}, 400
 
     # criando a ocorrência
-    ocorrencia = Ocorrencia(morador_id, "advertência", motivo, data)
+    ocorrencia = Ocorrencia(morador_id, advertencia, motivo, data)
 
     # adicionando ocorrência ao morador
     session.add(ocorrencia)
     session.commit()
 
+    count = session.query(Ocorrencia).filter(Ocorrencia.morador == morador_id).filter(Ocorrencia.tipo == advertencia).count()
+    count_advertencia = count % 3
+    logger.warning("Numero de advertencias %d" % count)
+    if(count_advertencia == 0):
+        # cobrando o valor da multa
+        financeiro = session.query(Financeiro).filter(Financeiro.morador == morador_id).first()
+        if financeiro:
+            valor_multa = financeiro.get_valor_da_multa()
+            session.query(Financeiro).filter(Financeiro.morador == morador_id).\
+            update({Financeiro.valor: Financeiro.valor + valor_multa}, synchronize_session=False)
+            session.commit()
+        
+        motivo_multa = ("O Morador do apartamento %s atingiu 3 advertências e recebeu uma multa no valor de R$ %d." % (morador_id, valor_multa))
+        ocorrencia_multa = Ocorrencia(morador_id, multa, motivo_multa, data)
+        session.add(ocorrencia_multa)
+        session.commit()
+        
+        ocorrencias = [ocorrencia, ocorrencia_multa]
+        return apresenta_ocorrencias(ocorrencias)
+    
     # retorna a representação da ocorrência
     return apresenta_ocorrencia(ocorrencia), 200
 

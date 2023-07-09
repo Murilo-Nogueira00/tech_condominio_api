@@ -35,3 +35,8 @@ class Financeiro(Base):
             return 250
         # se o espaço for a churrasqueira
         return 300
+
+    # quando o morador sofrer uma multa, retorna o valor da multa
+    def get_valor_da_multa(self):
+        # cobra o valor de 300 reais pela multa
+        return 300
