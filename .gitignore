@@ -1,0 +1,3 @@
+# Ignorar o diretório "venv" (ambiente virtual Python)
+venv/
+env/
