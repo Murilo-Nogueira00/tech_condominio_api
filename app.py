@@ -49,7 +49,8 @@ def add_morador(form: MoradorSchema):
     """
     morador = Morador(
         apartamento=form.apartamento,
-        nome=form.nome)
+        nome=form.nome,
+        email=form.email)
     logger.debug(f"Adicionando morador de apartamento: '{morador.apartamento}'")
     try:
         # criando conexão com a base

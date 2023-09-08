@@ -10,6 +10,7 @@ class MoradorSchema(BaseModel):
     """
     apartamento: str = "Número e bloco do apartamento"
     nome: str = "Nome do morador"
+    email: str = "Email do morador"
 
 
 class MoradorBuscaSchema(BaseModel):
@@ -34,6 +35,7 @@ def apresenta_moradores(moradores: List[Morador]):
         result.append({
             "apartamento": morador.apartamento,
             "nome": morador.nome,
+            "email": morador.email
         })
 
     return {"morador": result}
@@ -64,4 +66,5 @@ def apresenta_morador(morador: Morador):
         "id": morador.id,
         "apartamento": morador.apartamento,
         "nome": morador.nome,
+        "email": morador.email
     }

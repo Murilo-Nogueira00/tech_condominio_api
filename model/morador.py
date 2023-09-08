@@ -14,6 +14,7 @@ class Morador(Base):
     id = Column("pk_apartamento", Integer, primary_key=True)
     apartamento = Column(String(140), unique=True)
     nome = Column(String(140))
+    email = Column(String(140))
     data_insercao = Column(DateTime, default=datetime.now())
 
     # Definição do relacionamento entre o morador e a reserva.
@@ -22,7 +23,7 @@ class Morador(Base):
     # de reconstruir esse relacionamento.
     reservas = relationship("Reserva")
 
-    def __init__(self, apartamento:str, nome:str,
+    def __init__(self, apartamento:str, nome:str, email:str,
                  data_insercao:Union[DateTime, None] = None):
         """
         Cria um Morador
@@ -34,6 +35,7 @@ class Morador(Base):
         """
         self.apartamento = apartamento
         self.nome = nome
+        self.email = email
 
 
         # se não for informada, será o data exata da inserção no banco
