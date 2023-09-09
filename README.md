@@ -1,6 +1,6 @@
 # Tech Condomínio API
 
-Este projeto é a entrega do MVP da disciplina Desenvolvimento Full Stack Básico do curso de pós-graduação de Engenharia de Software na PUC RIO
+Este projeto é a entrega do MVP da disciplina Arquitetura de Software do curso de pós-graduação de Engenharia de Software na PUC RIO
 
 ---
 ## Como executar 
@@ -31,12 +31,38 @@ automaticamente após uma mudança no código fonte.
 
 Abra o [http://localhost:5000/#/](http://localhost:5000/#/) no navegador para verificar o status da API em execução.
 
+## Dockerização da aplicação
+
+Faça o download e instale o Docker Desktop na versão mais recente e compatível com seu PC.
+
+Crie uma imagem para essa aplicação rodando o seguinte comando, chamaremos esta imagem de componente-b:
+
+```
+docker build -t componente-b:latest .
+```
+
+Depois da imagem criada, iniciaremos o container com o seguinte comando:
+
+```
+docker run -p 5000:5000 componente-b
+```
+
 ## Integração com a interface de usuário
 
-Para um melhor aproveitamento da aplicação, é recomendado que o usuário acesse o repositório do front-end da aplicação no link: 
+Para um melhor aproveitamento da aplicação, é recomendado que o usuário acesse o repositório do front-end da aplicação no link:
 
 ```
 https://github.com/Murilo-Nogueira00/tech_condominio_front.git
 ```
 
 *Acesse o README do repositório front-end para mais informações.
+
+## Integração com a API de emails
+
+Para um melhor aproveitamento da aplicação, é recomendado que o usuário acesse o repositório da API de emails acessando o link:
+
+```
+https://github.com/Murilo-Nogueira00/tech_condominio_email.git
+```
+
+*Acesse o README do repositório para mais informações.
