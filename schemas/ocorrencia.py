@@ -23,7 +23,7 @@ def apresenta_ocorrencia(ocorrencia: Ocorrencia):
         "morador": ocorrencia.morador,
         "tipo": ocorrencia.tipo,
         "motivo": ocorrencia.motivo,
-        "data": ocorrencia.data_ocorrencia
+        "data": ocorrencia.data_ocorrencia.strftime('%d/%m/%Y')
     })
 
     return {"ocorrência": result_ocorrencia}
@@ -38,7 +38,7 @@ def apresenta_ocorrencias(ocorrencias: List[Ocorrencia]):
             "morador": ocorrencia.morador,
             "tipo": ocorrencia.tipo,
             "motivo": ocorrencia.motivo,
-            "data": ocorrencia.data_ocorrencia
+            "data": ocorrencia.data_ocorrencia.strftime('%d/%m/%Y')
         })
 
     return {"ocorrência": result_ocorrencia}

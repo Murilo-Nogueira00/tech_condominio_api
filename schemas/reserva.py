@@ -22,7 +22,7 @@ def apresenta_reservas(reservas: List[Reserva]):
         result.append({
             "apartamento": reserva.morador,
             "espaco": reserva.espaco,
-            "data": reserva.data_reserva
+            "data": reserva.data_reserva.strftime('%d/%m/%Y')
         })
 
     return {"reserva": result}
